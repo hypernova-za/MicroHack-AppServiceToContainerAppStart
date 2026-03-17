@@ -50,7 +50,7 @@ jobs:
     - name: Build and Push Image
       run: |
         az acr login --name eventapp999registry --username ${{ secrets.ACR_USERNAME }} --password ${{ secrets.ACR_PASSWORD }} &&
-        docker build -t eventapp999registry.azurecr.io/microhackapp:${{ steps.get_tag.outputs.image_tag }} -f Dockerfile . &&
+        docker build -t eventapp999registry.azurecr.io/microhackapp:${{ steps.get_tag.outputs.image_tag }} -f dockerfile . &&
         docker push eventapp999registry.azurecr.io/microhackapp:${{ steps.get_tag.outputs.image_tag }}
 
     - name: Deploy to Container App
@@ -59,7 +59,7 @@ jobs:
         imageToDeploy: eventapp999registry.azurecr.io/microhackapp:${{ steps.get_tag.outputs.image_tag }}
         acrUsername: ${{ secrets.ACR_USERNAME }}
         acrPassword: ${{ secrets.ACR_PASSWORD }}
-        resourceGroup: MicroHack-AppServiceToContainerApp
+        resourceGroup: rg-hackuser-016
         containerAppEnvironment: microhack-containerappenvironment
         containerAppName: microhack-containerapp
         targetPort: 8080
